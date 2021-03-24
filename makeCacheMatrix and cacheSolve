@@ -1,0 +1,35 @@
+## Put comments here that give an overall description of what your
+## functions do
+
+## Write a short comment describing this function
+
+makeCacheMatrix <- function(x = matrix()) {
+  
+  inv<-NULL  ## Define the null value for a new variable created with the name of inv
+  set<- function(y){ ##Define a function in a our function
+    
+    x <<- y ## Define the form that we call our matrix variable into the new function
+    inv <<- NULL ## assing again the value Null value for inv 
+    
+  }
+  get <- function(){x} ##define how to call our original matrix
+  setInverse <- function(inverse) {inv <<- inverse} ## define how to apply the inverse function to the created variable inv
+  getInverse <- function(){inv} ## define how to obtain the data for our new created inv variable
+  list(set = set , get = get, setInverse = setInverse , getInverse = getInverse) ##Create a list with the values for interpretate our inverse new inverse matrix
+  
+}
+
+cacheSolve <- function(x,...){
+  
+  inv <- x$getInverse() ## create a form to print our inverse matrix in the inv data created for the inverse function
+  if(!is.null(inv)){ ##specify what to do if the matrix original x is not singular
+    message("getting cached data") ##represent a message
+    return(inv) ## return the value of inv
+  } 
+  mat <- x$get() ##represent a form of represent the data of our original matrix x
+  inv <- solve(mat,...) ## apply the function solve that calculate the inverse of the original matrix x calling the variable mat that contain that original data of x
+  x$setInverse(inv) ## define how to set the new created data
+  inv ## finally express the new inverse matrix data created for the function
+
+  
+}
